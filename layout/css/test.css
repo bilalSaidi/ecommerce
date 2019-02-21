@@ -1,0 +1,84 @@
+
+
+
+
+
+
+
+
+
+
+/* Start Top Header*/
+
+
+
+
+
+
+
+.dropdown-menu{
+	min-width: 120px;
+	padding: 10px 0;
+	border:none;
+}
+.dropdown-menu>li{
+	margin-top: -13px;
+	margin-bottom: 15px;
+
+}
+.dropdown-menu>li:last-child{
+	margin-bottom: -5px;
+}
+
+.dropdown-menu>li>a{
+	margin: 3px auto;
+	color: blue;
+	padding: 7px;
+	
+}
+
+
+
+.navbar-right .msgWecomUser:hover{
+    text-decoration: none;
+}
+
+.navbar-nav > li.logSign,
+.navbar-nav > li.msgWecomUser{
+
+	display: block;
+	margin-left: 10px;
+    list-style: none;
+    font-size: 20px;
+    text-transform: capitalize;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+
+.navbar-nav > li.logSign a{
+	color: black;
+	transition: all .3s ease-in-out;
+	background-color:  gray;
+
+}
+.navbar-nav > li.logSign a:hover{
+	color: white;
+	background-color:  gray;
+    text-decoration: none;
+}
+.navbar-nav > li:hover.msgWecomUser{
+	background-color: transparent;
+}
+
+.navbar-nav > li.msgWecomUser a{
+	color: gray;
+	color: green;
+	cursor: pointer;
+}
+
+.navbar-nav > li.msgWecomUser a:hover{
+	background-color: gray;
+	color: white;
+    text-decoration: none;
+}

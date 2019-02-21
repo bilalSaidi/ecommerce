@@ -1,0 +1,439 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900|Rubik:300,400,500,700,900');
+/* Start Main Rulez */
+body{
+    background: #F4F4F4;
+        font-family: 'Rubik', sans-serif , cursive;
+}
+
+input{
+	position: relative;
+}
+.asterisk{
+	position: absolute;
+	top: 7px;
+	right: 30px;
+	font-size: 30px;
+	font-weight: bold;
+	color: red;
+}
+table.dataTable>tbody>tr.child ul.dtr-details>li{
+	white-space: pre-wrap;
+}
+
+/* End Main Rulez */
+/* Start Header */
+
+.contentlang{
+	position: absolute;
+	top: 90px;
+	left: -1px;
+	color: #fff;
+	cursor: pointer;
+	display: block;
+	width: 51px;
+	height: 63px;
+	background-color: #222;
+	text-align: center;
+	padding: 7px 5px;
+	border: 1px solid #888;
+	display: none;
+}
+.contentlang a{
+	display: block;
+	padding-top: 5px;
+
+}
+.contentlang a:hover{
+	color: #ddd;
+}
+/* End Header */
+/* start Login form */
+
+.login{
+    width: 300px;
+    margin:100px auto ;
+}
+.login h4{
+    color: #888;
+}
+.login input{
+    margin-bottom: 10px;
+}
+.login .form-control{
+    background-color: #e5e5e5;
+}
+.login .btn {
+    background-color: #008dde;
+}
+
+/* End Login form */
+
+
+/* Start Navbar */
+
+
+.navbar-toggle{
+	border-color: #0e8ce4;
+}
+.navbar-toggle .icon-bar{
+	background-color: #0e8ce4;
+}
+.container-fluid>.navbar-collapse,
+.container-fluid>.navbar-header,
+.container>.navbar-collapse, .container>.navbar-header{
+	border-top: 1px solid beige;
+}
+.navbar{
+	border-radius:0;
+	margin-bottom: 0;
+	background-color: #fff;
+    border-bottom: 1px solid #e6e6f2;
+    -webkit-box-shadow: 0px 0px 28px 0px rgba(82, 63, 105, 0.13);
+    box-shadow: 0px 0px 28px 0px rgba(82, 63, 105, 0.13);
+    -webkit-transition: all 0.3s ease;
+    
+}
+.navbar img{
+	width: 30px;
+	height: 30px;
+}
+.avatarUser{
+	background-color: #fff;
+    -webkit-box-shadow: 0 1px 9px #e0e0e0, inset 0 0 2px hsla(0,0%,84%,.75);
+    box-shadow: 0 1px 9px #e0e0e0, inset 0 0 2px hsla(0,0%,84%,.75);
+}
+.navbar-nav>li>a{
+	color: #000;
+	line-height: 2;
+}
+.navbar-nav>li>a:hover{
+	background-color: transparent;
+}
+.navbar>.container .navbar-brand, .navbar>.container-fluid .navbar-brand{
+	color: #000;
+	
+	font-size: 30px;
+}
+.navbar-inverse .navbar-nav>.open>a,
+.navbar-inverse .navbar-nav>.open>a:focus,
+.navbar-inverse .navbar-nav>.open>a:hover,
+.navbar-right .dropdown-menu,
+.dropdown-menu>li>a{
+	background-color: #22AECF;
+	font-size: 16px;
+	font-weight: 600;
+}
+.dropdown-menu{
+	min-width: 180px;
+	padding: 10px 0;
+	border:none;
+}
+.dropdown-menu>li{
+	margin-top: -13px;
+	margin-bottom: 15px;
+
+}
+.dropdown-menu>li:last-child{
+	margin-bottom: -5px;
+}
+
+.dropdown-menu>li>a{
+	margin: 3px auto;
+	color: #fff;
+	padding: 7px;
+	
+}
+.dropdown-menu>li>a:hover{
+	background-color: #CD24BE;
+	color: #fff;
+}
+
+
+.navbar .Langage{
+	font-size: 20px;
+	    font-size: 25px;
+    line-height: 1.3;
+}
+
+/* End Navbar */
+/* Start Manage Members */
+.Manage-Members img{
+	width: 50px;
+	height: 50px;
+
+}
+/* End Manage Members*/
+/* Start Page Edit Member */
+h1{
+	font-size: 40px;
+	font-weight: bold;
+	margin: 40px 15px;
+	color: #666;
+}
+/* End  Page Edit Member */
+
+/* Start Add Page Member */
+.show-pass{
+	position: absolute;
+  	top: 9px;
+  	right: -20px;
+  	cursor: pointer;
+}
+/* End Add Page Mmeber */
+/* Start Manage Page */
+
+table{
+	
+	background-color: white;
+    padding: 1.5em;
+    box-shadow: 3px 3px 20px rgba(0,0,0,0.3);
+    border-radius: 3px;
+    max-width: 100%;
+    text-align:center;
+
+}
+table .Activate{
+	display: block;
+	
+	width: 55%;
+	margin: auto;
+	margin-top: 2px;
+}
+
+/* End Manage Page */
+
+/* Start Page admin */
+
+
+
+a,a:hover{
+	text-decoration: none;
+	color: #fff;
+}
+
+.toggle-info{
+	color: #888;
+	font-size: 20px;
+	cursor: pointer;
+}
+.stat{
+	margin-top: 0;
+    margin-bottom: 20px;
+    text-align: center;
+    padding: 20px 10px;
+    background-color: #ddd;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+    border-radius: 5px;
+}
+.choix1{
+	background-color: #f36371;
+}
+.choix2{
+	background-color: #01a2a6;
+}
+.choix3{
+	background-color: #4CAF50;
+}
+.choix4{
+	background-color: #e5b14c;
+}
+.stat .info{
+	float: right;
+}
+.stat i{
+	position: absolute;
+	left: 15px;
+	top: 20px;
+	font-size: 80px;
+}
+.stat span {
+	display: block;
+	font-size: 50px;
+}
+.latest_item{
+	margin-bottom: 0;
+}
+.latest_item li{
+ 	overflow: hidden;
+ 
+ 	font-weight: bold;
+
+ 	border-bottom: 1px dotted #ddd;
+}
+ .latest_item li:last-child{
+ 	border-bottom: none;
+}
+ .latest_item li .name_user{
+ 	font-size: 15px;
+  	letter-spacing: 1px;
+  	display: inline-block;
+  	padding: 11px 15px;
+  	text-transform: capitalize;
+}
+ .latest_item li .item_active{
+ 	margin-right: 5px;
+ }
+
+.areaComment{
+	
+	display: block;
+	margin: 10px 0px; 
+	padding: 10px ; 
+	overflow: hidden;
+	border-bottom: 1px dotted #ddd;
+
+}
+.areaComment:nth-child(1){
+	margin-top: 0;
+}
+.areaComment:last-child{
+	border-bottom: none;
+}
+.areaComment .commentUser{
+	float: left;
+	width: 40%;
+	position: relative;
+	top: 5px;
+	right: -77px;
+	text-transform: capitalize;
+	font-weight: bold;
+} 
+.areaComment  .commentText{
+	float: right;
+	width: 60%;	
+}
+.areaComment  .commentText:before{
+	content: " “ ";
+	
+}
+.areaComment  .commentText:after{
+	content: " ” ";
+	
+}
+.areaComment  .commentText:before,
+.areaComment  .commentText:after
+{
+	font-size: 20px;
+	position: relative;
+	top: 5px;
+	font-weight: bold;
+	color: #888;
+}
+.areaComment .option{
+	width: 100%;
+	float: left;
+}
+.areaComment .option .control_member{
+	margin: 5px 10px;
+}
+
+
+/* End Page admin */
+
+/* Start Pge  Categories */
+.panel-heading .ordering a{
+	color: #888;
+}
+.panel-heading .ordering a.active{
+	color: red;
+}
+.btnAddCat{
+	margin-bottom: 20px;
+}
+.btnAddNoOption{
+	margin-top: 90px;
+}
+.panel-cat{
+	overflow: hidden;
+}
+.category{
+
+	position: relative;
+	
+}
+.category h3{
+	cursor: pointer;
+}
+
+.category .hideShowInfo{
+	display: none;
+}
+
+.panel-body .category:last-child  hr{
+	display: none;
+}
+.category span{
+	background-color: red;
+	margin-right: 3px;
+	padding: 5px;
+	color: #fff;
+	border-radius: 5px;
+	text-transform: capitalize;
+
+}
+
+.category span.vis{
+	background-color: rgb(42, 40, 37);
+}
+.category span.com{
+	background-color: rgb(208, 49, 49);
+
+}
+.category span.ad{
+	background-color: rgb(48, 99, 210);
+
+}
+
+.category .btn_control .control_member{
+	margin-right: 3px;
+	position: absolute;
+	top: -5px; 
+	padding: 3px;
+	border-radius: 5px;
+
+}
+
+
+.category .btn_control .control_member,
+.category .btn_control .control_member_dl{
+	
+	right: -100px;
+}
+
+
+.category:hover  .btn_control .control_member {
+	right: 70px;
+	transition: 0.5s all ease-out;
+}
+.category:hover  .btn_control .control_member_dl{
+	right: -3px;
+}
+
+
+/* End  Pge  Categories */
+
+/* Start Page Comment */
+.contMessage{
+	position: relative;
+}
+.niceMessage{
+	background-color: #ffa4a4;
+	color: #fff;
+	margin: 10px 0 ; 
+	padding: 10px;
+	border-left:10px solid red;
+	width: 800px;
+	font-size: 16px;
+	font-weight: bold;
+	border-radius: 5px;
+	position: absolute;
+	top: 10px;
+	left: -900px;
+}
+/* End Page Comment */
+
+/* Start Page Items */
+
+/* End Page Items */

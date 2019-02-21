@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900|Rubik:300,400,500,700,900');
+/* Start Main Rulez */
+body{
+    background: #F4F4F4;
+        font-family: 'Rubik', sans-serif , cursive;
+}
+input{
+	position: relative;
+}
+.asterisk{
+	right: auto;
+	left: 30px;
+}
+
+
+/* End Main Rulez */
+
+/* Start Add Page Member */
+.show-pass{
+  	right: auto;
+  	left: -20px;
+}
+
+/* End Add Page Member */
+
+/* Start Page Comment */
+
+.niceMessage{
+	border-left: none;
+	border-right:10px solid red;
+	left: auto;
+	right: -900px;
+}
+/* End Page Comment */
+
