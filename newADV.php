@@ -1,4 +1,5 @@
 <?php
+    ob_start();
 
     session_start();
 
@@ -139,7 +140,10 @@ if (isset($_SESSION['user'])) {
             $insertItem->execute(array($Name,$FiledImagesName,$Description,$price,$Country_Made,$status,$Category,$userID));
             // Echo Success Insert Item 
             if ($insertItem) {
-                echo "<div class='alert alert-success'> Item Inserted !!  </div>";
+  
+                header('location:http://localhost/ecomarce/profile.php');
+                exit();
+
             }else{
                 echo "<div class='alert alert-danger'>Error Insert Item :( Try Again </div>";
             }
@@ -253,15 +257,20 @@ if (isset($_SESSION['user'])) {
                                 <!-- Start  Category  field -->
                                 <div class="form-group form-group-lg">
                                     <label class="col-sm-2 control-label">Category</label>
-                                    <div class="col-sm-10 col-md-9">
+                                    <div class="col-sm-10 col-md-5">
                                         <select name="Category" class="form-control">
-                                            <option value="">...</option>
+                                            <option value="0">...</option>
                                             <?php
-                                                $statement = $conn->prepare("SELECT id, name FROM categories ");
-                                                $statement->execute();
-                                                $categories =  $statement->fetchAll();
+                                               
+                                                $categories =  getCat();
                                                 foreach ($categories as $cat) {
                                                     echo "<option value='".$cat['id']."'>".$cat['name']."</option>";
+                                                    $childCat =  getCat($cat['id']);
+
+                                                    foreach ($childCat as $child) {
+                                                            echo "<option value='".$child['id']."'> --- ".$child['name']."</option>";
+                                                    }
+                                                    
                                                 }
                                                 
                                             ?>
@@ -281,16 +290,6 @@ if (isset($_SESSION['user'])) {
                                 </div>
                         </form>
     				</div>
-    				<div class="col-md-4">
-    			    	<div class='thumbnail itemBox Live-preview'>
-    			    		 <span class='priceTag'>0</span>
-    			    		 <img class='img-responsive' src="<?php echo $img ;  ?>itemNone.jpg ">
-    			    		 <div class='caption'>
-    			    			 <h3>Title</h3>
-    			    			 <p>Descreption</p>
-    			    		 </div>
-    			    	</div>
-    				</div>  
                 </div>
 <?php
 /*
@@ -312,3 +311,5 @@ if (isset($_SESSION['user'])) {
  }
 
     include $tpl . 'footer.php';
+
+    ob_end_flush();

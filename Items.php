@@ -1,5 +1,5 @@
-	<?php
-
+<?php
+	ob_start();
 	session_start();
 
 	$TitlePage = 'Show Item';
@@ -14,7 +14,8 @@
 		$stmt = $conn->prepare("SELECT 
 								items.* ,
 								categories.name AS NameCategory ,
-								users.userName AS UserAddItem 
+								users.userName AS UserAddItem ,
+								users.phone AS phoneUser 
 								FROM 
 								items
 								INNER JOIN
@@ -45,6 +46,8 @@
 
 		// URL To Upload Images 
 		$SrcFileUpload = $_SERVER['DOCUMENT_ROOT'] . "\\"."eComarce\admin\Uploads\Items\\"  ;
+		$imageName = $item['ImagesItem'];
+		$arrayImages = explode(',',$imageName );
 
 	?>
 
@@ -52,35 +55,8 @@
 	<h1 class="text-center"> <?php echo $item['name']; ?> </h1>
 	<div class="container">
 		<div class="row">
-			<div class="col-md-5">
-
-				<?php
-					$imageName = $item['ImagesItem'];
-					$arrayImages = explode(',',$imageName );
-					if (empty($imageName)) {
-						
-						echo '<img class="img-responsive img-thumbnail image-default" src="admin/Uploads/Items/defaultItem.jpg"  />' ;
-
-					}
-				 ?>
-
-				<div class="cards">
-				<?php
-					
-
-					if (! empty($imageName)) {
-						foreach ($arrayImages as $image) {
-							echo "<div class='card'>";
-							echo '<img class="img-responsive img-thumbnail" src="admin/Uploads/Items/'.$image .'"  />' ;
-							echo "</div>";
-						}
-					}
-					
-				?>
-				</div>
-			</div>
-			<div class="col-md-7 ItemInfo">
-				<ul class="list-unstyled">
+			<div class="col-md-12 ItemInfo">
+				<ul class="list-unstyled col-md-6">
 					<li>
 						<h3><?php echo $item['name'];  ?></h3>
 					</li>
@@ -104,12 +80,52 @@
 						<span>Categoey  </span>
 						<a href="category.php?id=<?php echo $item['Cat_id'] ;  ?>"><?php echo ": " . $item['NameCategory']; ?></a>
 					</li>
+					
 					<li>
 						<i class="fa fa-user fa-fw"></i>
 						<span>Added By   </span><?php echo ": " . $item['UserAddItem']; ?>
 					</li>
+					<li>
+						<i class="fa fa-phone"></i>
+						<span>phone  </span><?php echo ": 0" . $item['phoneUser']; ?>
+					</li>
 				</ul> 
+				<div class="mainImage col-md-6">
+<?php
+					echo '<img class="img-responsive img-thumbnail" src="admin/Uploads/Items/'.$arrayImages[0] .'"  />' ;
+?>
+				</div>
 			</div>
+			<div class="col-md-12">
+
+				<?php
+					
+					if (empty($imageName)) {
+						
+						echo '<img class="img-responsive img-thumbnail image-default" src="admin/Uploads/Items/defaultItem.jpg"  />' ;
+
+					}
+				 ?>
+				 <h3>Images : </h3>
+				<div class="cards">
+				<?php
+					
+
+					if (! empty($imageName)) {
+						foreach ($arrayImages as $image) {
+							echo "<div class='  col-md-2 col-sm-4'>";
+							echo "<a href='admin/Uploads/Items/".$image."'  data-lightbox='roadtrip' data-title='".$item['name']."' >" ;
+								echo '<img class="img-responsive img-thumbnail" src="admin/Uploads/Items/'.$image .'"  />' ;
+							echo "</a>";
+							echo "</div>";
+						}
+					}
+					
+				?>
+				</div>
+			</div>
+
+
 		</div>
 		
 		<?php  if (isset($_SESSION['user'])) {?>
@@ -203,7 +219,7 @@
 
 
 
-	<?php
+<?php
 		
 		}else{ // No Id Found 
 			echo "<p class='alert alert-danger'>There's No Such ID Or Waiting For Approve This Item </p>";
@@ -214,3 +230,5 @@
 	}
 
 include $tpl . 'footer.php';
+
+ob_end_flush();

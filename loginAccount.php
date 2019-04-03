@@ -1,5 +1,7 @@
 <?php
 
+	ob_start();
+
     session_start();
 
     if (isset($_SESSION['user'])) {
@@ -195,3 +197,4 @@
 	</div>
 <?php
     include $tpl . 'footer.php';
+    ob_end_flush();
