@@ -16,6 +16,26 @@
 	}
 
 /*
+  ** Function Get Caregory and get item  v1.0.0
+  ** Get Category From Data Base 
+ */
+   function getCat($value = 0 ){
+   	 global $conn;
+   	 $stmt = $conn->prepare("SELECT * FROM categories WHERE parent = $value  ORDER BY id  ");
+   	 $stmt->execute();
+   	 return $stmt->fetchAll();
+   }
+
+    function getItem($value = 0 ){
+   	 global $conn;
+   	 $stmt = $conn->prepare("SELECT ImagesItem FROM items WHERE item_id = $value");
+   	 $stmt->execute();
+   	 return $stmt->fetch();
+    }
+
+/*
+
+/*
 **  Function redirectHome ($masgError,$Second)
 **   	this Page redirect In Page Index Case Error Exist 
 **	    	$masgError = Text Message Show The Errror  (String)
@@ -91,3 +111,25 @@
 		 return $statement->fetchAll();
 
 	}
+
+/* Function Get Prent Category From DataBase V 1.0.0 */
+function gatPrentCategory(){
+   	 global $conn;
+   	 $stmtItem = $conn->prepare("SELECT * FROM categories WHERE parent = 0    ");
+   	 $stmtItem->execute(array());
+   	 return $stmtItem->fetchAll();
+   }
+
+
+ /*
+-- Function Delete  Old Avatar User V 1.0.0 
+
+ */
+
+
+function deleteOldAvatar($idUser){
+	global $conn;
+	$stmt = $conn->prepare("SELECT ImageUser FROM users WHERE userID = ? ");
+	$stmt->execute(array($idUser));
+	return $stmt->fetch();
+}

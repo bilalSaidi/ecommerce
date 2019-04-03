@@ -28,9 +28,7 @@
         }
 
     	if ($do == 'Manage') { # Manage Page 
-                $stat = $conn->prepare("SELECT * FROM categories ORDER BY ordering $sort ");
-                $stat->execute();
-                $categories = $stat->fetchAll();
+                $categories = getCat();
                 if (! empty($categories)) { #  if Exist Category In Data Base Show The Form 
                     
             	echo "<div class='container'>";
@@ -72,6 +70,23 @@
                                     echo '<a href="?do=Delete&id= '.$cat["id"] . '" class=" confirm btn btn-danger control_member control_member_dl "> <i class="fa fa-close"></i>Delete </a> ';
                                     echo "<a href='?do=Edit&id= " . $cat["id"] . "' class='btn btn-success control_member  '><i class='fa fa-edit'></i> Edit </a> ";
                                 echo "</div>";
+                                $subCategories = getCat("{$cat["id"]}");
+                                if(! empty($subCategories)){
+                                    echo "<h4 class='sub-head'>Child [ ".$cat["name"]." ]</h4>";
+                                    echo "<ul class='list-unstyled sub-body'>";
+                                    
+                                    foreach ($subCategories as $subcat) {
+                                        echo "<li class='sub-link'>";
+                                            
+                                            echo "<p class='sub-title'>" . $subcat["name"] . "</p>";
+
+                                            echo "<a class='sub-edit ' href='?do=Edit&id= " . $subcat["id"] . "'>Edit</a> | ";
+                                            echo '<a class="sub-delete confirm" href="?do=Delete&id= '.$subcat["id"] . '" >Delete </a> ';
+                                            
+                                        echo "</li>";
+                                    }
+                                    echo "</ul>";
+                                }
                                 
                                 echo "<hr>";
                             echo "</div>";
@@ -121,6 +136,22 @@
                             <input class="form-control" type="text" name="Ordering" placeholder="Number To Arrange The Category" >
                         </div>
                     </div>
+                    <!-- Start Category  Type -->
+                    <div class="form-group form-group-lg">
+                        <label class="col-sm-2 control-label">Parent ? </label>
+                        <div class="col-sm-10 col-md-5">
+                            <select name="parent" class="form-control">
+                                <option value="0">None</option>
+                                <?php
+                                    $ParentCategory = gatPrentCategory();
+                                    foreach ($ParentCategory as $parentCat) {
+                                        echo "<option value='".$parentCat['id']."'>".$parentCat['name']."</option>";
+                                    }
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- End Category Type -->
                     <!-- Start  Visible field -->
                     <div class="form-group form-group-lg">
                         <label class="col-sm-2 control-label">Visible</label>
@@ -204,6 +235,7 @@
 
                 $name = $_POST['Name'];
                 $Description = $_POST['Description'];
+                $parent = $_POST['parent'];
                 $Ordering = $_POST['Ordering'];
                 $Visible = $_POST['Visible'];
                 $Allow_Comment = $_POST['Allow_Comment'];
@@ -234,8 +266,8 @@
                     }
                 }else{ # No Error Insert Information Category 
                    
-                        $stmt = $conn->prepare("INSERT INTO categories (name,descreption,ordering,visibility,allow_comment,allow_ads) VALUES(?,?,?,?,?,?)");
-                        $stmt->execute(array($name,$Description,$Ordering,$Visible,$Allow_Comment,$Allow_Ads));
+                        $stmt = $conn->prepare("INSERT INTO categories (name,descreption,parent,ordering,visibility,allow_comment,allow_ads) VALUES(?,?,?,?,?,?,?)");
+                        $stmt->execute(array($name,$Description,$parent,$Ordering,$Visible,$Allow_Comment,$Allow_Ads));
                         $row = $stmt->rowCount();
                         # Show Message Success And Redirect Prevois Page 
                         $msg =  "<div class='alert alert-success'>" . $row ." Record Updated </div>";
@@ -286,6 +318,27 @@
                             <input class=" password form-control" type="text" name="Description"  value="<?php echo $result[0]["descreption"] ;  ?>">
                         </div>
                     </div>
+                    <!-- Start Category  Type -->
+                    <div class="form-group form-group-lg">
+                        <label class="col-sm-2 control-label">Parent ? </label>
+                        <div class="col-sm-10 col-md-5">
+                            <select name="parent" class="form-control">
+                                <option value="0">None</option>
+                                <?php
+                                    $ParentCategory = gatPrentCategory();
+                                    foreach ($ParentCategory as $parentCat) {
+                                        if ($parentCat['id'] == $result[0]["parent"]) {
+                                            $selected = "selected";
+                                        }else{
+                                            $selected = "";
+                                        }
+                                        echo "<option ".$selected." value='".$parentCat['id']."'>".$parentCat['name']."</option>";
+                                    }
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- End Category Type -->
                     <!-- Start  Ordering field -->
                     <div class="form-group form-group-lg">
                         <label class="col-sm-2 control-label">Ordering</label>
@@ -440,6 +493,7 @@
                         $idCat = $_POST['idCat'];
                         $name = $_POST['Name'];
                         $desc = $_POST['Description'];
+                        $parent = $_POST['parent'];
                         $order = intval($_POST['Ordering']);
                         $visibility = $_POST['Visible'];
                         $allow_comment = $_POST['Allow_Comment'];
@@ -455,6 +509,7 @@
                                                         SET 
                                                         name = ?,
                                                         descreption = ?,
+                                                        parent = ? , 
                                                         ordering = ?,
                                                         visibility = ?,
                                                         allow_comment = ?,
@@ -462,7 +517,7 @@
                                                         WHERE 
                                                         id = ? 
                             ");
-                            $UpdateCat->execute(array($name,$desc,$order,$visibility,$allow_comment,$allow_ads,$idCat));
+                            $UpdateCat->execute(array($name,$desc,$parent,$order,$visibility,$allow_comment,$allow_ads,$idCat));
                             $msg =  "<div class='alert alert-success'>  " . $UpdateCat->rowCount() . " Row Updated </div>";
                             redirectHome($msg,'back');
 

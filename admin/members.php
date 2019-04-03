@@ -52,7 +52,7 @@
                 <h1 class='text-center'> <?php echo lang('ManageMember'); ?> </h1>;
                 
                 <div class="container">
-
+                   
                     <div >
                         <table class=" table table-bordered display responsive nowrap Manage-Members" style="width:100%">
                             <thead>
@@ -82,7 +82,7 @@
                                     echo '<td>'.$row['FullName'].'</td>';
                                     echo '<td>' .$row['date_Registred']. '</td>';
                                     echo '<td class="groupControl">' ;
-                                        echo "<a href='members.php?do=Edit&id= " . $row["userID"] . "' class='btn btn-success control_member'><i class='fa fa-edit'></i> ".lang('Edit')." </a> ";
+                                        
                                         echo '<a href="members.php?do=Delete&id= '.$row["userID"] . '" class=" confirm btn btn-danger control_member"> <i class="fa fa-close"></i>'.lang('Delete') . ' </a> ';
                                     
                                     # Member Not Activate 
@@ -96,7 +96,7 @@
 ?> <!-- Start Html -->
                             </tbody>
                         </table>
-                        <a href='?do=Add' class="btn btn-primary"><i class="fa fa-plus"></i><?php echo lang('AddNewMember'); ?>   </a>
+
                     </div>
                 </div>
 
@@ -107,7 +107,6 @@
                     echo "<p> ".lang('thereisNoMemberToShow') ."</p>";
                 echo "</div>";
                 
-                echo "<a href='?do=Add' class='btn btn-primary btnAddNoOption'><i class='fa fa-plus'></i>".lang('AddNewMember')."  </a>";
             echo "</div>";
         }  		 
     	}elseif ($do == 'memberActivate') { # This is Page Activate Member 
@@ -126,59 +125,6 @@
                 redirectHome($msg);
             }
             echo "</div>";
-        }elseif ($do == 'Add') { #This is Page Add Member 
-
-?><!-- Start HTML  -->
-            <h1 class="text-center"><?php echo lang('AddMember'); ?> </h1>
-            <div class="container">
-                <form  class="form-horizontal" method="POST" action="?do=insert" enctype="multipart/form-data">
-                    <!-- Start  username field -->
-                    <div class="form-group form-group-lg">
-                        <label class="col-sm-2 control-label"><?php echo lang('userName'); ?></label>
-                        <div class="col-sm-10 col-md-5">
-                            <input class="form-control" type="text" name="username" autocomplete="off"  required="required">
-                        </div>
-                    </div>
-                    <!-- Start  password field -->
-                    <div class="form-group form-group-lg">
-                        <label class="col-sm-2 control-label"><?php echo lang('password'); ?></label>
-                        <div class="col-sm-10 col-md-5">
-                            <input class=" password form-control" type="password" name="password" autocomplete="off" required="required">
-                            <i class="show-pass fa fa-eye fa-2x"></i>
-                        </div>
-                    </div>
-                    <!-- Start  Email field -->
-                    <div class="form-group form-group-lg">
-                        <label class="col-sm-2 control-label"><?php echo lang('Email'); ?></label>
-                        <div class="col-sm-10 col-md-5">
-                            <input class="form-control" type="email" name="Email" autocomplete="off"  required="required">
-                        </div>
-                    </div>
-                    <!-- Start  Upload Image User -->
-                    <div class="form-group form-group-lg">
-                        <label class="col-sm-2 control-label">User Avatar</label>
-                        <div class="col-sm-10 col-md-5">
-                            <input class="form-control" type="file" name="Avatar" autocomplete="off"  required="required">
-                        </div>
-                    </div>
-                    <!-- Start fullName  -->
-                    <div class="form-group form-group-lg">
-                        <label class="col-sm-2 control-label"><?php echo lang('fullName'); ?></label>
-                        <div class="col-sm-10 col-md-5">
-                            <input class="form-control" type="text" name="fullName" autocomplete="off"  required="required">
-                        </div>
-                    </div>
-                   
-                    
-                    <!-- Start Submit Button -->
-                    <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-10 col-md-5">
-                            <input class="btn btn-primary btn-lg" type="Submit" name="Submit" value="<?php echo lang('AddNewMember');  ?>">
-                        </div>
-                    </div>
-                </form>
-            </div>
-<?php # Start Code Php 
         }elseif ($do == 'Delete') { # This Is Page Delete Mmeber 
              echo "<div class='container'>" ; 
                 echo "<h1 class='text-center'>Delete Member </h1>";
@@ -196,108 +142,6 @@
                  }
              echo "</div>";
              
-        }elseif ($do == 'insert') { # This is Page Insert Member After Get All Information Mmeber 
-
-            echo "<div class='container'>";
-            echo "<h1 class='text-center'>Insert  Member </h1>";
-
-            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                // Image User 
-                $Avatar = $_FILES['Avatar'];
-
-                // Upload Variables; 
-                $AvatarName = $_FILES['Avatar']['name'];
-                $AvatarSize = $_FILES['Avatar']['size'];
-                $AvatarTmp = $_FILES['Avatar']['tmp_name'];
-                $AvatarType = $_FILES['Avatar']['type'];
-                // List Of Allowed Typed To Upload 
-                $AvatarAllowedExtension = array("png","jpg","jpeg","gif");
-                // Get Avatar Extension 
-                $AvatarExtensionSmall = strtolower($AvatarName);
-                $AvatarExtensiontmp = explode('.',$AvatarName);
-                $AvatarExtension = end($AvatarExtensiontmp);
-
-                
-              
-                $username = filter_var($_POST['username'],FILTER_SANITIZE_STRING);
-                $password = $_POST['password'];
-                $hashPassword = sha1($password);
-                $Email = filter_var($_POST['Email'],FILTER_VALIDATE_EMAIL);
-                $fullName = filter_var($_POST['fullName'],FILTER_SANITIZE_STRING);
-
-                
-               
-                // array Conatin Error Update Information Member
-                $errors = array();
-                //  Password  Validation
-                
-                if (strlen($password) < 8) {
-                        $errors[] = '<div class="alert alert-danger">Password can\'t Be <strong> Less Than 8 Charecter  </strong> </div>';
-                }elseif (empty($password)) {
-                       $errors[] = '<div class="alert alert-danger">Password can\'t Be <strong> Empty   </strong> </div>';
-                }
-                // Validation Form 
-                // validation userName Field
-                if (empty($username)) {
-                    $errors[] = '<div class="alert alert-danger">userName can\'t Be <strong> Empty  </strong> </div>';
-                }elseif (strlen($username) < 4) {
-                    $errors[] = '<div class="alert alert-danger">userName can\'t Be <strong> less Than 4 Charecter  </strong> </div>';
-                }elseif (strlen($username) > 25) {
-                    $errors[] = '<div class="alert alert-danger">userName can\'t Be <strong> More Than 25 Charecter  </strong> </div>';
-                }else { # Search If userName Exist In DataBase Or  Not 
-                    $stmt = $conn->prepare('SELECT * FROM users WHERE userName = ? ');
-                    $stmt->execute(array($username));
-                    if ($stmt->rowCount()) { # Case User Name Exist Show Message Error 
-                        $msg = '<div class="alert alert-danger"><strong>Sorry :( </strong> UserName :'.$username.' Is Already Exist Try Another userName </div>';
-                        redirectHome($msg,'back');
-                    }
-                }
-                // vaidation Email filed
-                if (empty($Email)) {
-                    $errors[] = '<div class="alert alert-danger">Email  can\'t Be <strong> Empty  </strong> </div>';
-                }
-                // validation fullName Field
-                if (empty($fullName)) {
-                    $errors[] = '<div class="alert alert-danger">fullName can\'t Be <strong> Empty  </strong> </div>';
-                }elseif (strlen($fullName) < 4) {
-                    $errors[] = '<div class="alert alert-danger">fullName can\'t Be <strong> less Than 4 Charecter  </strong> </div>';
-                }elseif (strlen($fullName) > 25) {
-                    $errors[] = '<div class="alert alert-danger">fullName can\'t Be <strong> More Than 25 Charecter  </strong> </div>';
-                }elseif ( !empty($AvatarName) && !in_array($AvatarExtension, $AvatarAllowedExtension)) {
-                    $errors[] = '<div class="alert alert-danger"> Extension Image  Not <strong> Allowed </strong> </div>';
-                }elseif (empty($AvatarName)) {
-                    $errors[] = '<div class="alert alert-danger">Image can\'t Be  <strong> Empty </strong> </div>';
-                }elseif($AvatarSize > 4194304 ){
-                    $errors[] = '<div class="alert alert-danger">Image can\'t Be  <strong> Larger Than 4MB </strong> </div>';
-                }
-
-                if (!empty($errors)) { # Array Error Insert Not Empty 
-                    foreach ($errors as $error) {
-                        echo $error;
-                    }
-                }else{ # No Error Insert Information User 
-                        
-                    $avatar = rand(0,1000000) . '_' . $AvatarName;
-                    move_uploaded_file($AvatarTmp, "Uploads\Avatars\\".$avatar);
-
-                    $stmt = $conn->prepare("INSERT INTO users (userName,password,Email,FullName,Regstatus,ImageUser)
-                    VALUES(?,?,?,?,1,?)");
-                    $stmt->execute(array($username,$hashPassword,$Email,$fullName,$avatar));
-                    $row = $stmt->rowCount();
-                    # Show Message Success And Redirect Prevois Page 
-                    $msg =  "<div class='alert alert-success'>" . $row ." Record Updated </div>";
-                    redirectHome($msg,'back');
-                
-                }
-
-            }else{
-                # Show Message Error And Redirect Home Page 
-                $msg =  "<div class='alert alert-danger'> <strong>Sorry  :( </strong> You Can't Brows This Page  Direct</div> ";
-                redirectHome($msg,4);
-            }
-
-            echo "</div>";
-            
         }elseif ($do =='Edit') {   # This Is Page Edit Member 
             // Get Information About Admin 
             if (isset($_GET['id'])) {
@@ -321,7 +165,7 @@
 ?> <!-- Start  Html -->
     		<h1 class="text-center"><?php echo lang('EditMember'); ?> </h1>
             <div class="container">
-                <form  class="form-horizontal" method="POST" action="?do=Update">
+                <form  class="form-horizontal" method="POST" action="?do=Update" enctype="multipart/form-data">
                     <!-- Start  username field -->
                     <div class="form-group form-group-lg">
                         <label class="col-sm-2 control-label"><?php echo lang('userName'); ?></label>
@@ -355,6 +199,24 @@
                             <input class="form-control" type="text" name="fullName" autocomplete="off" value="<?php echo($row[0]['FullName']); ?>" required>
                         </div>
                     </div>
+                    <!-- Start  Phone field -->
+                    <div class="form-group form-group-lg">
+                        <label class="col-sm-2 control-label">Phone</label>
+                        <div class="col-sm-10 col-md-5">
+                            <input class="form-control" type="text" name="phone" autocomplete="off" value="<?php echo($row[0]['phone']); ?>" required>
+                        </div>
+                    </div>
+                    <!-- Start  Upload Avatar Image  -->
+
+                    <div class="form-group form-group-lg">
+
+                        <label class="col-sm-2 control-label">Avatar</label>
+                        <div class="col-sm-10 col-md-5">
+
+                            <input class="form-control" type="file" name="avatar" >
+                            <p style="color: red; font-size: 16px ;">[ If You Don't Change Your Avatar Don't Upload Image ] <p>
+                        </div>
+                    </div>
                     
                     <!-- Start Submit Button -->
                     <div class="form-group">
@@ -383,13 +245,59 @@
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $userId = filter_var($_POST['userId'],FILTER_VALIDATE_INT);
                 $username = filter_var($_POST['username'],FILTER_SANITIZE_STRING);
+                $phone = filter_var($_POST['phone'],FILTER_SANITIZE_STRING);
                 $oldpassword = $_POST['oldpassword'];
                 $newpassword = $_POST['newpassword'];
                 $Email = filter_var($_POST['Email'],FILTER_VALIDATE_EMAIL);
                 $fullName = filter_var($_POST['fullName'],FILTER_SANITIZE_STRING);
 
-                // array Conatin Error Update Information Member
-                $errors = array();
+                // information  Avatar
+                $uploadedFile = $_FILES['avatar'];
+
+                if ($uploadedFile['error'] != 4) {  // Case User Upload New Avatar
+                    // Get Info From The Form
+                    $Image_name = $uploadedFile['name'];
+                    $Image_type = $uploadedFile['type'];
+                    $Image_size = $uploadedFile['size'];
+                    $Image_error = $uploadedFile['error'];
+                    $Image_temp = $uploadedFile['tmp_name'];
+
+                    // Set Allowed File Extension
+                    $AllowedExtension = array('jpg','png','jpeg','gif');
+
+                    // Valdiation Field 
+                        
+                    // URL To Upload Images 
+                    $SrcFileUpload = $_SERVER['DOCUMENT_ROOT'] . "\\"."eComarce\admin\Uploads\Avatars\\"  ;
+                    
+                    $smallLetterIamge  = strtolower($Image_name);
+                    $explodemyImage = explode('.',$Image_name);
+                    $imageExtension = end($explodemyImage);
+
+                    $randomImage  = rand(0 , 100000000) . '.' . $imageExtension;
+
+                    // array Conatin Error Update Information Member
+                    $errors = array();
+
+                    // Check Size Image
+                    if ($Image_size > 4194304 ){
+                            $errors[] = "<p class='alert alert-danger'>  avatar [".$Image_name."] Can't Be Than 4MB </p>";
+
+                    }else if (! in_array($imageExtension,$AllowedExtension)){
+                            $errors[] = "<p class='alert alert-danger'>  File [".$Image_name."] Is Not Image :(  </p>";
+                    }
+
+                    // Check If  Has No Error
+                    if (empty($errors)){
+                                // Move The Images
+
+                        move_uploaded_file($Image_temp, $SrcFileUpload . $randomImage  );
+
+                                
+                    }
+
+                }
+
                 // Trick Password And Validation
                 $pass = '' ; 
                 if (!empty($newpassword)) {
@@ -428,21 +336,41 @@
                     foreach ($errors as $error) {
                         echo $error;
                     }
+                    
                     $msg = "<div class='alert alert-warning'>".lang('<strong>Sorry:(</strong>youMustBeTryAgain') ."</div>" ;
                     redirectHome($msg,'back');
+                    
+                    
                 }else{ # No Error Update Information User 
-                        $stmt = $conn->prepare("UPDATE users SET  userName = ? , password = ? , Email = ? , FullName = ? WHERE userId = ? ");
-                        $stmt->execute(array($username,$pass,$Email,$fullName,$userId));
-                        $row = $stmt->rowCount();
+            
+                    if(isset($randomImage)){
+                            $text = ", ImageUser = ? ";
+                            $myvar = array($username,$pass,$phone,$Email,$fullName,$randomImage,$userId);
+
+                            // Function Delete Old Photo 
+                            $nameAvatar = deleteOldAvatar($userId) ;
+                            unlink("Uploads/Avatars/" . $nameAvatar['ImageUser'] );
+                    }else{
+                            $text = "";
+                            $myvar = array($username,$pass,$phone,$Email,$fullName,$userId);
+                    }
+                    $stmt = $conn->prepare("UPDATE users SET  userName = ? , password = ? , phone = ? , Email = ? , FullName = ? ".$text." WHERE userId = ? ");
+                       
+                    $stmt->execute($myvar);
+                    $row = $stmt->rowCount();
                         # Show Message Success And Redirect Previous Page 
+                        
                         $msg =  "<div class='alert alert-success'>" . $row . lang('RecordUpdated') ." </div>";
                         redirectHome($msg,'back');
+                        
                 }
 
             }else{
                 # Show Message Error And Redirect Home Page 
+                
                 $msg = "<div class='alert alert-danger'>".lang('<strong>Sorry:(</strong>youCantBrowsThisPageDirect') ."</div>" ;
                 redirectHome($msg);
+                
             }
 
             echo "</div>";

@@ -18,6 +18,7 @@
 	      <li><a href="items.php"><?php echo lang('Items'); ?></a></li>
 	      <li><a href="members.php"><?php echo lang('Members'); ?></a></li>
         <li><a href="comment.php"><?php echo lang('Comments'); ?></a></li>
+        <li><a href="slider.php"><?php echo 'Slider' ?></a></li>
  	  </ul>
       <ul class="nav navbar-nav navbar-right">
         <?php

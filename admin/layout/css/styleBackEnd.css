@@ -163,6 +163,8 @@ table.dataTable>tbody>tr.child ul.dtr-details>li{
 
 }
 /* End Manage Members*/
+
+
 /* Start Page Edit Member */
 h1{
 	font-size: 40px;
@@ -194,11 +196,11 @@ table{
 }
 table .Activate{
 	display: block;
-	
 	width: 55%;
 	margin: auto;
 	margin-top: 2px;
 }
+
 
 /* End Manage Page */
 
@@ -410,6 +412,35 @@ a,a:hover{
 .category:hover  .btn_control .control_member_dl{
 	right: -3px;
 }
+
+.category .sub-head{
+	color: #358987;
+	margin:15px 0 15px 15px  ;
+}
+.category .sub-body{
+	margin: 15px 0 15px 15px ;
+}
+.category .sub-body li{
+	margin:15px 0 15px 15px ;
+}
+.category .sub-body li:hover,
+.category .sub-body li:active{
+	text-decoration: none;
+}
+.category .sub-body .sub-title{
+	display: inline-block;
+	font-size: 17px;
+	margin-right: 10px;
+}
+.category .sub-body .sub-edit{
+	color: blue;
+	
+}
+
+.category .sub-body .sub-delete{
+	color: red;
+}
+
 
 
 /* End  Pge  Categories */

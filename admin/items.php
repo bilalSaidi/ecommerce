@@ -44,9 +44,9 @@
            
 ?><!-- Start Html -->
                 <h1 class='text-center'> Manage Item </h1>;
-                
-                <div class="container">
 
+                <div class="container">
+                    <a href='?do=add' class="btn btn-primary btnAddCat"><i class="fa fa-plus"></i> Add New Item </a>
                     <div  >
                         <table class=" table table-bordered display responsive nowrap" style="width:100%">
                             <thead>
@@ -88,7 +88,7 @@
 ?> <!-- Start Html -->
                             </tbody>
                         </table>
-                        <a href='?do=add' class="btn btn-primary"><i class="fa fa-plus"></i> Add New Item </a>
+
                     </div>
                 </div>
 <?php # Start Php 
@@ -207,11 +207,16 @@
                             <select name="Category" class="form-control">
                                 <option value="0">...</option>
                                 <?php
-                                    $statement = $conn->prepare("SELECT id, name FROM categories ");
-                                    $statement->execute();
-                                    $categories =  $statement->fetchAll();
+                                   
+                                    $categories =  getCat();
                                     foreach ($categories as $cat) {
                                         echo "<option value='".$cat['id']."'>".$cat['name']."</option>";
+                                        $childCat =  getCat($cat['id']);
+
+                                        foreach ($childCat as $child) {
+                                                echo "<option value='".$child['id']."'> --- ".$child['name']."</option>";
+                                        }
+                                        
                                     }
                                     
                                 ?>
@@ -317,6 +322,19 @@
             echo "<div class='container'>" ; 
                 echo "<h1 class='text-center'>Delete Item </h1>";
                  $idItem = intval($_GET['id']);
+
+                 // Delete Store Images
+
+                 $NameImages = getItem($idItem);
+                 $arrayImages = explode(',', $NameImages['ImagesItem']);
+                 if (! empty($arrayImages)) {
+
+                     foreach ($arrayImages as $Images) {
+                         unlink('Uploads/Items/'.$Images );
+                     }
+                 }
+                 
+
                  $stmt  = $conn->prepare("DELETE FROM items WHERE item_id = ?");
                  $stmt->execute(array($idItem));
                  $row = $stmt->rowCount();
@@ -328,6 +346,7 @@
                     $msg =  "<div class='alert alert-danger'> <strong>Sorry :( </strong> Erorr Delte Item (Id Not Found )</div>";
                     redirectHome($msg);
                  }
+        
              echo "</div>";
 
         }elseif ($do == 'ItemActivate') {
