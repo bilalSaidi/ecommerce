@@ -42,32 +42,17 @@ $(document).ready(function(){
         $(".Live-preview .priceTag ").text("$" + $(this).val());
     });
 
-      // Shuffle Images 
-    var ZindexVal = 0;
-    $(".cards .card").on('click',function(){
-
-      $(this).animate({
-
-        left:'80%',
-        marginTop : 30
-
-      } ,400 , function(){ // calBack Function 
-
-           ZindexVal--;
-
-           $(this).css('z-index',ZindexVal);
-
-      }).animate({
-      
-          left : $(this).css('left'),
-          marginTop : 0
 
 
-      },400);
 
-    });
+    /* Setting lightbox*/
 
 
+    lightbox.option({
+      'resizeDuration': 200,
+      'wrapAround': true,
+      'alwaysShowNavOnTouchDevices' : true
+    })
     
 
 });
