@@ -14,6 +14,9 @@
              } 
         ?>
         <link rel="stylesheet" href="<?php echo $css ; ?>font-awesome.min.css">
+
+        <link rel="stylesheet" href="<?php echo $css ; ?>lightbox.min.css">
+        
         <link rel="stylesheet" href="<?php echo $css ; ?>style.css">
         <?php
             if ($isArabic == true) {
@@ -95,21 +98,28 @@
         
         
         <div class="SearchItem">
-            <div class="container">
-              
-              <div class="col-md-6">
-                <h2 class="text-center"><a href="index.php">Ecommerce Shope </a>  </h2>
+          <div class="container">    
+            <div class="col-md-4">
+                <h2 ><a href="index.php">Ecommerce Shope </a>  </h2>
+            </div>
+            <!-- Start Serach Form -->
+            <div class="searchForm">
+              <div class="col-md-8">
+                  <form class="navbar-form navbar-right">
+                      <div class="form-group">
+                          <input type="text" class="form-control" placeholder="Search For Item ">
+                      </div>
+                          <button type="submit" class="btn btn-default">Search</button>
+                  </form>
               </div>
-
-              <div class="col-md-6">
-                  Here Serach Product 
-              </div>
-            </div>   
+            </div>
+            <!-- End Search Form -->
+          </div>   
         </div>
 
       <nav class="navbar navbar-inverse MainNavbar">
        
-            <div class="container">
+        <div class="container">
           <!-- Brand and toggle get grouped for better mobile display -->
           <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navDrop" aria-expanded="false">
@@ -120,27 +130,54 @@
             </button>
 
           </div>
-
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse" id="navDrop">
 
             <ul class="nav navbar-nav menuCategory ">
+
                 <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Categories <span class="caret"></span></a>
                   <ul class="dropdown-menu">
                     <?php
                       $Category = getCat() ; 
+
                       foreach ($Category as $cat) {
-                         echo "<li> <a href='category.php?id=".$cat['id']."'>" . strtoupper($cat['name']) . "</a></li>";
+                        $subCategories = getCat("{$cat["id"]}");
+                        if (! empty($subCategories)) {
+                            $chevron = "<i class='fa fa-chevron-right'></i>";
+                        }else{
+                            $chevron = "";
+                        }
+                         echo "<li>";
+                          echo "<a href='category.php?id=".$cat['id']."'>" . strtoupper($cat['name']) . " $chevron</a>";
+                          if (!empty($subCategories)) {
+                            echo "<ul>";
+                              foreach ($subCategories as $subcat) {
+                                echo "<li>";
+                                  echo "<a href='category.php?id=".$subcat['id']."'>" . $subcat['name'] . " </a>";
+                                echo "</li>";
+                              
+                              }
+                            echo "</ul>";
+                              
+                          }
+                         echo "</li>";
                       }
                     ?>
                   </ul>
+             
                 </li>
+
+                
             </ul>
           </div><!-- /.navbar-collapse -->
+
         </div><!-- /.container-fluid -->
        
       </nav>
+
+
+      
 
 
        

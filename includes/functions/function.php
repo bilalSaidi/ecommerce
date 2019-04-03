@@ -5,9 +5,9 @@
   ** Function Get Caregory v1.0.0
   ** Get Category From Data Base 
  */
-   function getCat(){
+   function getCat($value = 0 ){
    	 global $conn;
-   	 $stmt = $conn->prepare("SELECT * FROM categories WHERE 1 ORDER BY id  ");
+   	 $stmt = $conn->prepare("SELECT * FROM categories WHERE parent = $value  ORDER BY id  ");
    	 $stmt->execute();
    	 return $stmt->fetchAll();
    }
@@ -49,6 +49,15 @@
    	 $stmtItem->execute(array());
    	 return $stmtItem->fetchAll();
    }
+
+   function getSomeItems($catId , $numberLimit = 20 ){
+   		global $conn;
+   		$stmtSomeItem = $conn->prepare("SELECT * FROM items WHERE Cat_id = $catId  AND Approve = 1    ORDER BY item_id DESC  LIMIT $numberLimit");
+   		$stmtSomeItem->execute(array($catId));
+   		return $stmtSomeItem->fetchAll();
+   }
+
+  
 
 /*
   ** Function Get Category v1.0.0
@@ -157,3 +166,14 @@
 		 return $statement->fetchAll();
 
 	}
+
+
+
+
+function deleteOldAvatar($idUser){
+	global $conn;
+	$stmt = $conn->prepare("SELECT ImageUser FROM users WHERE userID = ? ");
+	$stmt->execute(array($idUser));
+	return $stmt->fetch();
+}
+
