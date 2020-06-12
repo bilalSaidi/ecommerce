@@ -1,4 +1,4 @@
 # ecommerce
-simple ecommerce website Project 
+ecommerce website Project 
 
 admin Panel  { root , 123456789 }
